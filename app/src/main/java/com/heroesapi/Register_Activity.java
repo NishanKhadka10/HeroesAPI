@@ -94,7 +94,7 @@ public class Register_Activity extends AppCompatActivity {
 
         HeroesAPI heroesAPI = Url.getInstance().create(HeroesAPI.class);
 
-        Heroes heroes = new Heroes(name, desc);
+//        Heroes heroes = new Heroes(name, desc);
         Call<Void> heroesCall = heroesAPI.addHero(map);
         heroesCall.enqueue(new Callback<Void>() {
             @Override
@@ -114,10 +114,10 @@ public class Register_Activity extends AppCompatActivity {
             }
         });
 
-//        openDashboard
-//        Intent intent = new Intent(Register_Activity.this,LoadImageStrict_Activity.class);
-//        startActivity(intent);
-//        finish();
+        //openDashboard
+        Intent intent = new Intent(Register_Activity.this,LoadImageStrict_Activity.class);
+        startActivity(intent);
+        finish();
     }
 
 
@@ -163,6 +163,7 @@ public class Register_Activity extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
         map.put("desc", desc);
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Url.BASE_URL)
