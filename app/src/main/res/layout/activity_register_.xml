@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".Register_Activity">
 
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="400dp"
+        android:layout_height="126dp"
+        android:layout_gravity="center"
+        android:scaleType="centerInside" />
     <EditText
         android:id="@+id/etname"
         android:layout_width="match_parent"

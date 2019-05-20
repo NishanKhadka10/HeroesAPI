@@ -1,6 +1,8 @@
 package com.heroesapi;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -37,6 +39,38 @@ public class LoadImageStrict_Activity extends AppCompatActivity {
             imgPhoto.setImageBitmap(BitmapFactory.decodeStream((InputStream) url.getContent()));
         } catch (IOException e) {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void loadFromUrl2() {
+        String url = "";
+        new AsyncTaskLoadImage(imgPhoto).execute(url);
+
+    }
+
+    public class AsyncTaskLoadImage extends AsyncTask<String, String, Bitmap> {
+        private final static String TAG = "AsyncTaskLoadImage";
+        private ImageView imgPhoto;
+
+        public AsyncTaskLoadImage(ImageView imageView) {
+            this.imgPhoto = imgPhoto;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap bitmap = null;
+            try {
+                URL url = new URL(params[0]);
+                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            imgPhoto.setImageBitmap(bitmap);
         }
     }
 }
