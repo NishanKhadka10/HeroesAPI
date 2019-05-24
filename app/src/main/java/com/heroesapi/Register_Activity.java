@@ -54,18 +54,18 @@ public class Register_Activity extends AppCompatActivity {
         btnFieldMap = findViewById(R.id.btnFieldMap);
         imgPhoto = findViewById(R.id.imgPhoto);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Save();
-            }
-        });
-        btnField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SaveField();
-            }
-        });
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Save();
+//            }
+//        });
+//        btnField.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SaveField();
+//            }
+//        });
 
         btnFieldMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,78 +82,78 @@ public class Register_Activity extends AppCompatActivity {
         });
     }
 
-    private void Save() {
-        SaveImageOnly();
-        String name = etName.getText().toString();
-        String desc = etDesc.getText().toString();
-
-        Map<String, String> map = new HashMap<>();
-        map.put("name", name);
-        map.put("desc", desc);
-        map.put("image", imageName);
-
-        HeroesAPI heroesAPI = Url.getInstance().create(HeroesAPI.class);
-
-//        Heroes heroes = new Heroes(name, desc);
-        Call<Void> heroesCall = heroesAPI.addHero(map);
-        heroesCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(Register_Activity.this, "Code" + response.code(), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(Register_Activity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(Register_Activity.this, "Error" + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        //openDashboard
-        Intent intent = new Intent(Register_Activity.this,LoadImageStrict_Activity.class);
-        startActivity(intent);
-        finish();
-    }
+//    private void Save() {
+//        SaveImageOnly();
+//        String name = etName.getText().toString();
+//        String desc = etDesc.getText().toString();
+//
+//        Map<String, String> map = new HashMap<>();
+//        map.put("name", name);
+//        map.put("desc", desc);
+//        map.put("image", imageName);
+//
+//        HeroesAPI heroesAPI = Url.getInstance().create(HeroesAPI.class);
+//
+////        Heroes heroes = new Heroes(name, desc);
+//        Call<Void> heroesCall = heroesAPI.addHero(map);
+//        heroesCall.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(Register_Activity.this, "Code" + response.code(), Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                Toast.makeText(Register_Activity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(Register_Activity.this, "Error" + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//        //openDashboard
+//        Intent intent = new Intent(Register_Activity.this,LoadImageStrict_Activity.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
 
     //Using @Field
-    private void SaveField() {
-        String name = etName.getText().toString();
-        String desc = etDesc.getText().toString();
-
-        Heroes heroes = new Heroes(name, desc);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Url.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        HeroesAPI heroesAPI = retrofit.create(HeroesAPI.class);
-        Call<Void> heroesCall = heroesAPI.addHero(name, desc);
-        heroesCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(Register_Activity.this, "Code" + response.code(), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(Register_Activity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(Register_Activity.this, "Error" + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-    }
+//    private void SaveField() {
+//        String name = etName.getText().toString();
+//        String desc = etDesc.getText().toString();
+//
+//        Heroes heroes = new Heroes(name, desc);
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(Url.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        HeroesAPI heroesAPI = retrofit.create(HeroesAPI.class);
+//        Call<Void> heroesCall = heroesAPI.addHero(name, desc);
+//        heroesCall.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(Register_Activity.this, "Code" + response.code(), Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                Toast.makeText(Register_Activity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(Register_Activity.this, "Error" + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//    }
 
     //Using @FieldMap(Key and Value)
     private void SaveFieldMap() {
@@ -171,7 +171,8 @@ public class Register_Activity extends AppCompatActivity {
                 .build();
 
         HeroesAPI heroesAPI = retrofit.create(HeroesAPI.class);
-        Call<Void> heroesCall = heroesAPI.addHero(map);
+        Call<Void> heroesCall = heroesAPI.addHero(Url.Cookie, map);
+
         heroesCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -245,7 +246,7 @@ public class Register_Activity extends AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("imageFile", file.getName(), requestBody);
         HeroesAPI heroesAPI = Url.getInstance().create(HeroesAPI.class);
-        Call<ImageResponse> responseBodyCall = heroesAPI.uploadImage(body);
+        Call<ImageResponse> responseBodyCall = heroesAPI.uploadImage(Url.Cookie, body);
         StrictMode();
 
         Response<ImageResponse> imageResponseResponse = null;
